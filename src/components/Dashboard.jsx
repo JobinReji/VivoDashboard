@@ -1,11 +1,11 @@
 import bgImage from "../assets/Dash_back.jpg";
-import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import ConsumerProfile from "./ConsumerProfile";
 import { FilterProvider } from "./FilterContext";
 import FilterDialog from "./FilterDialog";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useState } from "react";
+import PriceRange from "./PriceRange";
 
 export default function Dashboard() {
   const [pageIndex, setPageIndex] = useState(0);
@@ -16,6 +16,11 @@ export default function Dashboard() {
       title: "Consumer Profile",
       subtitle: "Understanding Audiences Through a Brand Lens",
       nValue: "27,188",
+    },
+    {
+      component: <PriceRange />,
+      title: "Profile by Price Range",
+      subtitle: "Customer Snapshot Across Price Ranges",
     },
   ];
 
@@ -41,7 +46,7 @@ export default function Dashboard() {
           nValue={currPage.nValue ? `(n=${currPage.nValue})` : ""}
         />
         <div className="flex-1 overflow-auto">
-          <ConsumerProfile />
+          {currPage.component}
           <FilterDialog />
         </div>
         <div
