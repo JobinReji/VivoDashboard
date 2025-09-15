@@ -10,7 +10,6 @@ import {
   ConsumerProfileOccupation,
   ConsumerProfilePriceRange,
 } from "./Charts";
-// import { useFilter } from "./FilterContext";
 
 export default function ConsumerProfile() {
   //  const { filters } = useFilter();
