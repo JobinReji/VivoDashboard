@@ -5,7 +5,6 @@ import ConsumerProfile from "./ConsumerProfile";
 import { FilterProvider } from "./FilterContext";
 import FilterDialog from "./FilterDialog";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { Component } from "react";
 import { useState } from "react";
 
 export default function Dashboard() {
@@ -38,8 +37,8 @@ export default function Dashboard() {
       >
         <Header
           title={currPage.title}
-          subtitle={currPage.subtitle}
-          nValue={currPage.nValue}
+          subtitle={currPage.subtitle ? currPage.subtitle : ""}
+          nValue={currPage.nValue ? `(n=${currPage.nValue})` : ""}
         />
         <div className="flex-1 overflow-auto">
           <ConsumerProfile />

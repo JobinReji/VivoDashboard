@@ -20,7 +20,7 @@ export default function Header({ title, subtitle, nValue }) {
       </div>
       <div className="w-[10%] flex flex-col items-center">
         <img src={vivoLogo} alt="Vivo Logo" className="w-24 py-2" />
-        <p className="text-sm">(n={nValue})</p>
+        <p className="text-sm">{nValue}</p>
       </div>
     </header>
   );
