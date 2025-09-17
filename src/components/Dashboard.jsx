@@ -6,6 +6,7 @@ import FilterDialog from "./FilterDialog";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useState } from "react";
 import PriceRange from "./PriceRange";
+import BrandSnapshot from "./BrandSnapshot";
 
 export default function Dashboard() {
   const [pageIndex, setPageIndex] = useState(0);
@@ -21,6 +22,12 @@ export default function Dashboard() {
       component: <PriceRange />,
       title: "Profile by Price Range",
       subtitle: "Customer Snapshot Across Price Ranges",
+    },
+    {
+      component: <BrandSnapshot />,
+      title: "Brand Snapshot",
+      subtitle: "From Discovery to Loyalty - A Journey Through Consumer Data",
+      nValue: "5,675",
     },
   ];
 
@@ -50,14 +57,14 @@ export default function Dashboard() {
           <FilterDialog />
         </div>
         <div
-          className="bg-gray-300 rounded-full fixed left-0 top-[50%] cursor-pointer"
+          className="bg-gray-300 rounded-full p-[0.3%] fixed left-0 top-[50%] cursor-pointer z-20"
           title="Previous Page"
           onClick={gotPrev}
         >
           <FaAngleLeft className="text-xl" />
         </div>
         <div
-          className="bg-gray-300 rounded-full fixed right-0 top-[50%] cursor-pointer"
+          className="bg-gray-300 rounded-full p-[0.3%] fixed right-0 top-[50%] cursor-pointer z-20"
           title="Next Page"
           onClick={gotNext}
         >
