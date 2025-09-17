@@ -6,6 +6,7 @@ import FilterDialog from "./FilterDialog";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useState } from "react";
 import PriceRange from "./PriceRange";
+import BrandImagery from "./BrandImagery";
 import BrandSnapshot from "./BrandSnapshot";
 
 export default function Dashboard() {
@@ -22,6 +23,12 @@ export default function Dashboard() {
       component: <PriceRange />,
       title: "Profile by Price Range",
       subtitle: "Customer Snapshot Across Price Ranges",
+    },
+    {
+      component: <BrandImagery />,
+      title: "Brand Imagery",
+      subtitle: "How Consumers Perceive Competing Brands on Imagery Metrics",
+      nValue: "27,188",
     },
     {
       component: <BrandSnapshot />,
