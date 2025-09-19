@@ -48,11 +48,15 @@ export default function Dashboard() {
   const currPage = pages[pageIndex];
 
   const gotNext = () => {
-    setPageIndex((prev) => (prev + 1) % pages.length);
+    if (pageIndex < pages.length - 1) {
+      setPageIndex((prev) => prev + 1);
+    }
   };
 
   const gotPrev = () => {
-    setPageIndex((prev) => (prev - 1 + pages.length) % pages.length);
+    if (pageIndex > 0) {
+      setPageIndex((prev) => prev - 1);
+    }
   };
 
   return (
@@ -71,14 +75,22 @@ export default function Dashboard() {
           <FilterDialog />
         </div>
         <div
-          className="bg-gray-300 rounded-full p-[0.3%] fixed left-0 top-[50%] cursor-pointer z-20"
+          className={`rounded-full p-[0.3%] fixed left-0 top-[50%] z-20 ${
+            pageIndex === 0
+              ? "bg-gray-400 cursor-not-allowed opacity-50"
+              : "bg-gray-300 cursor-pointer"
+          }`}
           title="Previous Page"
           onClick={gotPrev}
         >
           <FaAngleLeft className="text-xl" />
         </div>
         <div
-          className="bg-gray-300 rounded-full p-[0.3%] fixed right-0 top-[50%] cursor-pointer z-20"
+          className={`rounded-full p-[0.3%] fixed right-0 top-[50%] z-20 ${
+            pageIndex === pages.length - 1
+              ? "bg-gray-400 cursor-not-allowed opacity-50"
+              : "bg-gray-300 cursor-pointer"
+          }`}
           title="Next Page"
           onClick={gotNext}
         >
