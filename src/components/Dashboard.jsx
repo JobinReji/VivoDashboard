@@ -6,6 +6,7 @@ import FilterDialog from "./FilterDialog";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useState } from "react";
 import PriceRange from "./PriceRange";
+import AiplPerformance from "./AiplPerformance";
 import BrandImagery from "./BrandImagery";
 import BrandSnapshot from "./BrandSnapshot";
 
@@ -23,6 +24,12 @@ export default function Dashboard() {
       component: <PriceRange />,
       title: "Profile by Price Range",
       subtitle: "Customer Snapshot Across Price Ranges",
+    },
+    {
+      component: <AiplPerformance />,
+      title: "AIPL Performance",
+      subtitle: "Brand Funnel Comparision: VIVO vs. Key Brands",
+      nValue: "27,188",
     },
     {
       component: <BrandImagery />,
