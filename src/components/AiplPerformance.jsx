@@ -97,6 +97,75 @@ const customStyles = {
   }),
 };
 
+const BrandSelect = ({ id, label, value, onChange, options }) => (
+  <div className="flex flex-col gap-1 items-center w-[15%]">
+    <label className="text-white" htmlFor={id}>
+      {label}
+    </label>
+    <Select
+      id={id}
+      value={value}
+      onChange={onChange}
+      options={options}
+      isClearable
+      className="w-full"
+      styles={customStyles}
+      classNamePrefix="select"
+      placeholder="--Select--"
+    />
+  </div>
+);
+
+const LogoBox = ({ brand }) => (
+  <div className="w-full bg-white rounded-2xl flex justify-center items-center">
+    {brand ? (
+      <img
+        src={brandLogos[brand.value.toLowerCase()]}
+        alt={brand.value.toLowerCase()}
+        className="h-12 object-contain"
+      />
+    ) : (
+      <span className="text-gray-500">Select any Brand</span>
+    )}
+  </div>
+);
+
+const FunnelCard = ({
+  top,
+  mid1,
+  mid2,
+  bottom,
+  extra1,
+  extra2,
+  extra3,
+  diffs,
+}) => (
+  <div className="w-[18%] gap-2 text-center flex flex-col items-center justify-center text-sm relative">
+    <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
+      {extra1}
+    </div>
+    <div className="relative w-full flex justify-center items-center text-white">
+      <img src={Funnel} alt="Funnel" className="w-[90%] h-auto" />
+      <div className="absolute top-[16%] -ml-[4%]">{top}</div>
+      <div className="absolute top-[44%] -ml-[4%]">{mid1}</div>
+      <div className="absolute top-[68%] -ml-[4%]">{mid2}</div>
+      <div className="absolute top-[88%] -ml-[4%]">{bottom}</div>
+    </div>
+    <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
+      {extra2}
+    </div>
+    <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
+      {extra3}
+    </div>
+    {/* Difference Values */}
+    {diffs.map((d, i) => (
+      <div key={i} className={`absolute ${d.position}`}>
+        {d.value}
+      </div>
+    ))}
+  </div>
+);
+
 export default function AiplPerformance() {
   const [brand1, setBrand1] = useState(brands[0]);
   const [brand2, setBrand2] = useState(brands[1]);
@@ -111,131 +180,106 @@ export default function AiplPerformance() {
     return brands.filter((b) => !selected.includes(b.value));
   };
 
+  const funnelData = [
+    {
+      top: "59%",
+      mid1: "23%",
+      mid2: "4%",
+      bottom: "1%",
+      extra1: "1%",
+      extra2: "1%",
+      extra3: "30%",
+      diffs: [
+        { position: "-right-[10%] top-[33%]", value: "39%" },
+        { position: "-right-[5%] top-[50%]", value: "16%" },
+        { position: "right-0 top-[65%]", value: "26%" },
+      ],
+    },
+    {
+      top: "98%",
+      mid1: "68%",
+      mid2: "38%",
+      bottom: "18%",
+      extra1: "13%",
+      extra2: "7%",
+      extra3: "37%",
+      diffs: [
+        { position: "-right-[10%] top-[33%]", value: "69%" },
+        { position: "-right-[5%] top-[50%]", value: "56%" },
+        { position: "right-0 top-[65%]", value: "46%" },
+      ],
+    },
+    {
+      top: "99%",
+      mid1: "68%",
+      mid2: "37%",
+      bottom: "13%",
+      extra1: "14%",
+      extra2: "14%",
+      extra3: "18%",
+      diffs: [
+        { position: "-right-[10%] top-[33%]", value: "68%" },
+        { position: "-right-[5%] top-[50%]", value: "5%" },
+        { position: "right-0 top-[65%]", value: "34%" },
+      ],
+    },
+    {
+      top: "96%",
+      mid1: "53%",
+      mid2: "20%",
+      bottom: "8%",
+      extra1: "11%",
+      extra2: "14%",
+      extra3: "19%",
+      diffs: [
+        { position: "-right-[10%] top-[33%]", value: "55%" },
+        { position: "-right-[5%] top-[50%]", value: "38%" },
+        { position: "right-0 top-[65%]", value: "39%" },
+      ],
+    },
+  ];
+
   return (
     <div className="h-full w-full flex flex-col items-center px-4 relative">
       <div className="w-[96%] flex justify-end">
         <div className="flex justify-around w-[85%] z-10 text-sm">
-          <div className="flex flex-col gap-1 items-center w-[15%]">
-            <label className="text-white" htmlFor="vivo_iqoo">
-              VIVO/ iQOO
-            </label>
-            <Select
-              id="vivo_iqoo"
-              value={vivoIqoo}
-              onChange={setVivoIqoo}
-              options={vivo_iqoo}
-              isClearable
-              className="w-full"
-              styles={customStyles}
-              classNamePrefix="select"
-              placeholder="--Select--"
-            />
-          </div>
-          <div className="flex flex-col gap-1 items-center w-[15%]">
-            <label className="text-white" htmlFor="brand1">
-              Brand 1
-            </label>
-            <Select
-              id="brand1"
-              value={brand1}
-              onChange={setBrand1}
-              options={getOptions(brand1?.value)}
-              isClearable
-              className="w-full"
-              styles={customStyles}
-              classNamePrefix="select"
-              placeholder="--Select--"
-            />
-          </div>
-          <div className="flex flex-col gap-1 items-center w-[15%]">
-            <label className="text-white" htmlFor="brand2">
-              Brand 2
-            </label>
-            <Select
-              id="brand2"
-              value={brand2}
-              onChange={setBrand2}
-              options={getOptions(brand2?.value)}
-              isClearable
-              className="w-full"
-              styles={customStyles}
-              classNamePrefix="select"
-              placeholder="--Select--"
-            />
-          </div>
-          <div className="flex flex-col gap-1 items-center w-[15%]">
-            <label className="text-white" htmlFor="brand3">
-              Brand 3
-            </label>
-            <Select
-              id="brand3"
-              value={brand3}
-              onChange={setBrand3}
-              options={getOptions(brand3?.value)}
-              isClearable
-              className="w-full"
-              styles={customStyles}
-              classNamePrefix="select"
-              placeholder="--Select--"
-            />
-          </div>
+          <BrandSelect
+            id={"vivo_iqoo"}
+            label="VIVO/ iQOO"
+            value={vivoIqoo}
+            onChange={setVivoIqoo}
+            options={vivo_iqoo}
+          />
+          <BrandSelect
+            id={"brand1"}
+            label="Brand 1"
+            value={brand1}
+            onChange={setBrand1}
+            options={getOptions(brand1?.value)}
+          />
+          <BrandSelect
+            id={"brand2"}
+            label="Brand 2"
+            value={brand2}
+            onChange={setBrand2}
+            options={getOptions(brand2?.value)}
+          />
+          <BrandSelect
+            id={"brand3"}
+            label="Brand 3"
+            value={brand3}
+            onChange={setBrand3}
+            options={getOptions(brand3?.value)}
+          />
         </div>
       </div>
       <div className="bg-white rounded-t-3xl w-[96%] h-[85%] absolute bottom-0 flex items-end flex-col">
         <div className="w-[85%] my-4">
           <div className="flex justify-around w-full z-10 text-sm items-center">
-            <div className="flex flex-col gap-1 items-center w-[15%]">
-              <div className="w-full bg-white rounded-2xl flex justify-center items-center">
-                {vivoIqoo ? (
-                  <img
-                    src={brandLogos[vivoIqoo.value.toLowerCase()]}
-                    alt={vivoIqoo.value.toLowerCase()}
-                    className="h-12 object-contain"
-                  />
-                ) : (
-                  <span>Select any Brand</span>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 items-center w-[15%]">
-              <div className="w-full bg-white rounded-2xl flex justify-center items-center">
-                {brand1 ? (
-                  <img
-                    src={brandLogos[brand1.value.toLowerCase()]}
-                    alt={brand1.value.toLowerCase()}
-                    className="h-12 object-contain"
-                  />
-                ) : (
-                  <span>Select any Brand</span>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 items-center w-[15%]">
-              <div className="w-full bg-white rounded-2xl flex justify-center items-center">
-                {brand2 ? (
-                  <img
-                    src={brandLogos[brand2.value.toLowerCase()]}
-                    alt={brand2.value.toLowerCase()}
-                    className="h-12 object-contain"
-                  />
-                ) : (
-                  <span>Select any Brand</span>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 items-center w-[15%]">
-              <div className="w-full bg-white rounded-2xl flex justify-center items-center">
-                {brand3 ? (
-                  <img
-                    src={brandLogos[brand3.value.toLowerCase()]}
-                    alt={brand3.value.toLowerCase()}
-                    className="h-12 object-contain"
-                  />
-                ) : (
-                  <span>Select any Brand</span>
-                )}
-              </div>
-            </div>
+            <LogoBox brand={vivoIqoo} />
+            <LogoBox brand={brand1} />
+            <LogoBox brand={brand2} />
+            <LogoBox brand={brand3} />
           </div>
         </div>
         <div className="w-full flex flex-1">
@@ -254,94 +298,9 @@ export default function AiplPerformance() {
             </div>
           </div>
           <div className="w-[85%] flex justify-around items-center">
-            <div className="w-[18%] gap-2 text-center flex flex-col items-center justify-center text-sm relative">
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                1%
-              </div>
-              <div className="relative w-full flex justify-center items-center text-white">
-                <img src={Funnel} alt="Funnel" className="w-[90%] h-auto" />
-                <div className="absolute top-[16%] -ml-[4%]">59%</div>
-                <div className="absolute top-[44%] -ml-[4%]">23%</div>
-                <div className="absolute top-[68%] -ml-[4%]">4%</div>
-                <div className="absolute top-[88%] -ml-[4%]">1%</div>
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                1%
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                30%
-              </div>
-              {/* Difference Values */}
-              <div className="absolute -right-[10%] top-[33%]">39%</div>
-              <div className="absolute -right-[5%] top-[50%]">16%</div>
-              <div className="absolute right-0 top-[65%]">26%</div>
-            </div>
-            <div className="w-[18%] gap-2 text-center flex flex-col items-center justify-center text-sm relative">
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                13%
-              </div>
-              <div className="relative w-full flex justify-center items-center text-white">
-                <img src={Funnel} alt="Funnel" className="w-[90%] h-auto" />
-                <div className="absolute top-[16%] -ml-[4%]">98%</div>
-                <div className="absolute top-[44%] -ml-[4%]">68%</div>
-                <div className="absolute top-[68%] -ml-[4%]">38%</div>
-                <div className="absolute top-[88%] -ml-[4%]">18%</div>
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                7%
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                37%
-              </div>
-              {/* Difference Values */}
-              <div className="absolute -right-[10%] top-[33%]">69%</div>
-              <div className="absolute -right-[5%] top-[50%]">56%</div>
-              <div className="absolute right-0 top-[65%]">46%</div>
-            </div>
-            <div className="w-[18%] gap-2 text-center flex flex-col items-center justify-center text-sm relative">
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                14%
-              </div>
-              <div className="relative w-full flex justify-center items-center text-white">
-                <img src={Funnel} alt="Funnel" className="w-[90%] h-auto" />
-                <div className="absolute top-[16%] -ml-[4%]">99%</div>
-                <div className="absolute top-[44%] -ml-[4%]">68%</div>
-                <div className="absolute top-[68%] -ml-[4%]">37%</div>
-                <div className="absolute top-[88%] -ml-[4%]">13%</div>
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                14%
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                18%
-              </div>
-              {/* Difference Values */}
-              <div className="absolute -right-[10%] top-[33%]">68%</div>
-              <div className="absolute -right-[5%] top-[50%]">5%</div>
-              <div className="absolute right-0 top-[65%]">34%</div>
-            </div>
-            <div className="w-[18%] gap-2 text-center flex flex-col items-center justify-center text-sm relative">
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                11%
-              </div>
-              <div className="relative w-full flex justify-center items-center text-white">
-                <img src={Funnel} alt="Funnel" className="w-[90%] h-auto" />
-                <div className="absolute top-[16%] -ml-[4%]">96%</div>
-                <div className="absolute top-[44%] -ml-[4%]">53%</div>
-                <div className="absolute top-[68%] -ml-[4%]">20%</div>
-                <div className="absolute top-[88%] -ml-[4%]">8%</div>
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                14%
-              </div>
-              <div className="py-0.5 px-2 my-0.5 -ml-[4%] bg-blue-200 rounded-md">
-                19%
-              </div>
-              {/* Difference Values */}
-              <div className="absolute -right-[10%] top-[33%]">55%</div>
-              <div className="absolute -right-[5%] top-[50%]">38%</div>
-              <div className="absolute right-0 top-[65%]">39%</div>
-            </div>
+            {funnelData.map((f, i) => (
+              <FunnelCard key={i} {...f} />
+            ))}
           </div>
         </div>
       </div>
