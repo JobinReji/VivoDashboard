@@ -151,7 +151,7 @@ export default function BrandSnapshot() {
                   ))}
                 </div>
               </div>
-              <div className="text-center w-[70%] h-full flex flex-col items-center justify-center flex-1 text-xs">
+              <div className="text-center w-[70%] h-full flex flex-col items-center justify-center flex-1 text-xs relative">
                 <div className="py-0.5 px-0.5 my-0.5 -ml-[4%] bg-purple-300">
                   23%
                 </div>
@@ -168,6 +168,10 @@ export default function BrandSnapshot() {
                 <div className="py-0.5 px-0.5 my-0.5 -ml-[4%] bg-purple-300">
                   28%
                 </div>
+                {/* Difference Values */}
+                <div className="absolute right-[11%] top-[30%]">75%</div>
+                <div className="absolute right-[14%] top-[47%]">63%</div>
+                <div className="absolute right-[18%] top-[64%]">40%</div>
               </div>
             </div>
           </div>
