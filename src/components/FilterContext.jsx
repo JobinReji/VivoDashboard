@@ -4,7 +4,7 @@ const FilterContext = createContext();
 
 export function FilterProvider({ children }) {
   const [open, setOpen] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState(null);
 
   const openFilter = () => setOpen(true);
   const closeFilter = () => setOpen(false);

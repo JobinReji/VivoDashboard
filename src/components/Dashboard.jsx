@@ -60,7 +60,7 @@ export default function Dashboard() {
   };
 
   return (
-    <FilterProvider>
+    <FilterProvider key={pageIndex}>
       <div
         className="h-screen w-screen bg-no-repeat bg-cover bg-center flex flex-col"
         style={{ backgroundImage: `url(${bgImage})` }}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useFilter } from "./FilterContext";
 
 export default function FilterDialog() {
-  const { open, closeFilter, applyFilters } = useFilter();
+  const { open, closeFilter, applyFilters, filters } = useFilter();
 
   const defaultFilters = {
     year: "All",
@@ -23,8 +23,8 @@ export default function FilterDialog() {
 
   // reset to defaults when dialog opens
   useEffect(() => {
-    if (open) setLocalFilters(defaultFilters);
-  }, [open]);
+    if (open) setLocalFilters(filters || defaultFilters);
+  }, [open, filters]);
 
   const handleChange = (field, value) => {
     setLocalFilters((prev) => ({ ...prev, [field]: value }));
@@ -32,6 +32,7 @@ export default function FilterDialog() {
 
   const handleApply = () => {
     applyFilters(localFilters);
+    closeFilter();
   };
 
   const handleReset = () => {
