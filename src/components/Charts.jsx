@@ -63,7 +63,6 @@ const ConsumerProfileBrands = () => {
       axisLine: { show: false },
       axisTick: { show: false },
       axisLabel: {
-        color: "#000",
         fontSize: 12,
       },
     },
@@ -126,7 +125,7 @@ const ConsumerProfileOccupation = () => {
       left: "20%",
       right: "10%",
       top: "5%",
-      bottom: "5%",
+      bottom: "-5%",
       containLabel: true,
     },
     xAxis: {
