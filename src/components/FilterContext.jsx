@@ -20,7 +20,7 @@ export const FilterProvider = ({ children }) => {
       const capitalized = key.charAt(0).toUpperCase() + key.slice(1);
       return (
         <span key={key} className="mr-2">
-          <strong>{capitalized}:</strong> {values.join(", ")}
+          <strong>{capitalized}:</strong> <i>{values.join(", ")}</i>
           {index < arr.length - 1 && " | "}
         </span>
       );
