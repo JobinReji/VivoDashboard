@@ -2,27 +2,44 @@ import { createContext, useContext, useState } from "react";
 
 const FilterContext = createContext();
 
-export function FilterProvider({ children }) {
+export const FilterProvider = ({ children }) => {
+  const [filters, setFilters] = useState({});
   const [open, setOpen] = useState(false);
-  const [filters, setFilters] = useState(null);
 
   const openFilter = () => setOpen(true);
   const closeFilter = () => setOpen(false);
 
   const applyFilters = (newFilters) => {
     setFilters(newFilters);
-    setOpen(false);
   };
+
+  // Generate a summary string for header
+  const appliedSummary = Object.entries(filters)
+    .filter(([_, values]) => values && values.length > 0)
+    .map(([key, values], index, arr) => {
+      const capitalized = key.charAt(0).toUpperCase() + key.slice(1);
+      return (
+        <span key={key} className="mr-2">
+          <strong>{capitalized}:</strong> {values.join(", ")}
+          {index < arr.length - 1 && " | "}
+        </span>
+      );
+    });
 
   return (
     <FilterContext.Provider
-      value={{ open, openFilter, closeFilter, filters, applyFilters }}
+      value={{
+        filters,
+        open,
+        openFilter,
+        closeFilter,
+        applyFilters,
+        appliedSummary,
+      }}
     >
       {children}
     </FilterContext.Provider>
   );
-}
+};
 
-export function useFilter() {
-  return useContext(FilterContext);
-}
+export const useFilter = () => useContext(FilterContext);

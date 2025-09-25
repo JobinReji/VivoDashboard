@@ -22,44 +22,6 @@ export default function FilterDialog() {
 
   const [localFilters, setLocalFilters] = useState(defaultFilters);
 
-  // reset to defaults when dialog opens
-  useEffect(() => {
-    if (open) {
-      setLocalFilters(filters || defaultFilters);
-    }
-  }, [open, filters]);
-
-  const handleChange = (field, selectedOptions) => {
-    const values = selectedOptions
-      ? selectedOptions.map((opt) => opt.value)
-      : [];
-    setLocalFilters((prev) => ({ ...prev, [field]: values }));
-  };
-
-  const handleApply = () => {
-    applyFilters(localFilters);
-    closeFilter();
-  };
-
-  const handleReset = () => {
-    setLocalFilters(defaultFilters);
-    applyFilters(defaultFilters);
-  };
-
-  if (!open) return null;
-
-  const customStyles = {
-    control: (base) => ({
-      ...base,
-      minHeight: "36px",
-      fontSize: "12px",
-    }),
-    menu: (base) => ({
-      ...base,
-      fontSize: "12px",
-    }),
-  };
-
   const filterOptions = {
     year: [
       { value: "2021", label: "2021" },
@@ -141,6 +103,44 @@ export default function FilterDialog() {
     ],
   };
 
+  // reset to defaults when dialog opens
+  useEffect(() => {
+    if (open) {
+      setLocalFilters(Object.keys(filters).length ? filters : defaultFilters);
+    }
+  }, [open, filters]);
+
+  const handleChange = (field, selectedOptions) => {
+    const values = selectedOptions
+      ? selectedOptions.map((opt) => opt.value)
+      : [];
+    setLocalFilters((prev) => ({ ...prev, [field]: values }));
+  };
+
+  const handleApply = () => {
+    applyFilters(localFilters);
+    closeFilter();
+  };
+
+  const handleReset = () => {
+    setLocalFilters(defaultFilters);
+    applyFilters(defaultFilters);
+  };
+
+  if (!open) return null;
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      minHeight: "36px",
+      fontSize: "12px",
+    }),
+    menu: (base) => ({
+      ...base,
+      fontSize: "12px",
+    }),
+  };
+
   return (
     <div className="fixed inset-0 bg-[#00000079] backdrop-blur-sm flex justify-center items-center z-50">
       <div className="bg-white w-[600px] rounded-xl shadow-lg p-6 relative">
@@ -162,11 +162,11 @@ export default function FilterDialog() {
                 {key}
               </label>
               <Select
-                value={filterOptions[key].filter((opt) =>
+                value={(filterOptions[key] || []).filter((opt) =>
                   localFilters[key].includes(opt.value)
                 )}
                 onChange={(opts) => handleChange(key, opts)}
-                options={filterOptions[key]}
+                options={filterOptions[key] || []}
                 styles={customStyles}
                 isMulti
                 closeMenuOnSelect={false}
